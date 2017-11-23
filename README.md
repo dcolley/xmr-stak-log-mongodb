@@ -8,7 +8,7 @@ Use MongoDB to generate reports
 
 ## Requirements
 
-* https://nodejs.org/
+* https://nodejs.org/ (tested with 8.8.1)
 * https://github.com/node-schedule/node-schedule
 * https://github.com/request/request
 
@@ -22,7 +22,7 @@ git clone https://github.com/dcolley/xmr-stak-log-mongodb [dirname]
 
 cd [xmr-stak-log-mongodb|dirname]
 
-npm update
+npm install
 
 ## Configuration
 

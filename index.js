@@ -51,7 +51,7 @@ schedule.scheduleJob('0,5,10,15,20,25,30,35,40,45,50,55 * * * * *', function(){
 				var collection = db.collection('Log');
 				var res = collection.insert( log, function(err, res) {
 					if( !err && res.result.ok ) {
-						console.log( 'Log for '+log.worker +' / '+api.ip+' / '+log.dateTime+' / '+res.ops[0]._id );
+						console.log( 'Log for '+log.workerid +' / '+api.ip+' / '+log.dateTime+' / '+res.ops[0]._id );
 					}
 				} );
 			}
