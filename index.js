@@ -6,6 +6,11 @@ var schedule = require('node-schedule');
 var request = require('request');
 var moment = require('moment');
 
+// var os = require("os");
+// var workerid = os.hostname(); 
+var workerid = 'miner1';
+var walletid = '4BE3Yd8Nhy3goFVte65yRgLCpVhvJromtExGnvPTUZwj3766wWNKkA9Pe1pmzKHkDuW7hvRu458FwSArJRkVw4sxMc4s52T';
+
 //var dateTimeFormat = 'YYYY-MM-DD HH:mm:ss'; // edit this to suite moment.js
 var dateTimeFormat = ''; 
 
@@ -35,6 +40,8 @@ schedule.scheduleJob('0,5,10,15,20,25,30,35,40,45,50,55 * * * * *', function(){
 		if( err ) console.log( err );
 
 		var log = JSON.parse( body );
+		log.walletid = walletid;
+		log.workerid = workerid;
 		log.ip = api.ip;
 		log.dateTime = moment.utc().format( dateTimeFormat );
 
@@ -44,7 +51,7 @@ schedule.scheduleJob('0,5,10,15,20,25,30,35,40,45,50,55 * * * * *', function(){
 				var collection = db.collection('Log');
 				var res = collection.insert( log, function(err, res) {
 					if( !err && res.result.ok ) {
-						console.log( 'Log for '+api.ip+' / '+log.dateTime+' / '+res.ops[0]._id );
+						console.log( 'Log for '+log.worker +' / '+api.ip+' / '+log.dateTime+' / '+res.ops[0]._id );
 					}
 				} );
 			}
