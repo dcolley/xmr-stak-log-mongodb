@@ -6,7 +6,8 @@ var schedule = require('node-schedule');
 var request = require('request');
 var moment = require('moment');
 
-var dateTimeFormat = 'YYYY-MM-DD HH:mm:ss'; // edit this to suite moment.js
+//var dateTimeFormat = 'YYYY-MM-DD HH:mm:ss'; // edit this to suite moment.js
+var dateTimeFormat = ''; 
 
 // API config
 var api = {
@@ -29,24 +30,23 @@ var m = {
 // every 5 seconds...
 schedule.scheduleJob('0,5,10,15,20,25,30,35,40,45,50,55 * * * * *', function(){
 
-	console.log('The answer to life, the universe, and everything!');
-	
 	// get the stats
 	request( api.proto+'://'+api.ip+':'+api.port+api.path, function( err, res, body ) {
-		console.log( "inside request" );
 		if( err ) console.log( err );
 
 		var log = JSON.parse( body );
 		log.ip = api.ip;
-		log.dateTime = moment().format( dateTimeFormat );
-		//console.log( log );
+		log.dateTime = moment.utc().format( dateTimeFormat );
 
-	  // Connect to the db
+		// Connect to the db
 		MongoClient.connect(m.proto+'://'+m.ip+':'+m.port+'/'+m.db, function(err, db) {
 			if(!err) {
-				console.log("We are connected");
 				var collection = db.collection('Log');
-				collection.insert( log );
+				var res = collection.insert( log, function(err, res) {
+					if( !err && res.result.ok ) {
+						console.log( 'Log for '+api.ip+' / '+log.dateTime+' / '+res.ops[0]._id );
+					}
+				} );
 			}
 			db.close();
 		});
