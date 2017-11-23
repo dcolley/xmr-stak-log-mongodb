@@ -1,0 +1,22 @@
+{
+  "name": "xmr-stak-log-mongodb",
+  "version": "1.0.0",
+  "description": "api logger to mongodb",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "^2.2.33",
+    "node-schedule": "^1.2.5",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "xmr",
+    "log",
+    "api"
+  ],
+  "author": "derek@colley.cc",
+  "license": "GPL-3.0"
+}
